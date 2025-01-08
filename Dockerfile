@@ -18,6 +18,8 @@ RUN yarn install
 RUN yarn build
 RUN rm -rf node_modules && mv prod_node_modules node_modules
 RUN rm -rf .yarn/cache
+RUN apk update
+RUN apk add nano
 
 FROM node:16.14-alpine
 WORKDIR /usr/src/trudesk

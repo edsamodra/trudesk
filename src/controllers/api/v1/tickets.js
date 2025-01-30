@@ -795,6 +795,17 @@ apiTickets.update = function (req, res) {
             return cb()
           },
           function (cb) {
+            if (!_.isUndefined(reqTicket.type)) {
+              ticket.type = reqTicket.type._id || reqTicket.type
+
+              ticket.populate('type', function () {
+                return cb()
+              })
+            } else {
+              return cb()
+            }
+          },
+          function (cb) {
             if (!_.isUndefined(reqTicket.group)) {
               ticket.group = reqTicket.group._id || reqTicket.group
 
@@ -815,6 +826,13 @@ apiTickets.update = function (req, res) {
             } else {
               return cb()
             }
+          },
+          function (cb) {
+            if (!_.isUndefined(reqTicket.dueDate)) {
+              ticket.dueDate = reqTicket.dueDate
+            }
+
+            return cb()
           },
           function (cb) {
             if (!_.isUndefined(reqTicket.closedDate)) {
